@@ -18,6 +18,7 @@ along with xdcc-dl.  If not, see <http://www.gnu.org/licenses/>.
 LICENSE"""
 
 import os
+import re
 import time
 import struct
 import shlex
@@ -280,6 +281,18 @@ class XDCCClient(SimpleIRCClient):
         self.logger.info("Connected to server")
         conn.whois(self.pack.bot)
 
+    def on_currenttopic(self, conn: ServerConnection, event: Event):
+        topic = event.arguments[1]
+        topic = re.sub(r'\\x\d+', '', topic)
+        topic = topic.lower()
+        for channel in re.findall(r'#[a-z-]+',topic):
+            if channel in self.channels:
+                continue
+            time.sleep(random.randint(1, 3))
+            print(f"Joining channel {channel}")
+            conn.join(channel)
+
+
     def on_whoischannels(self, conn: ServerConnection, event: Event):
         """
         The 'whoischannels' event indicates that a whois request has found
@@ -299,6 +312,7 @@ class XDCCClient(SimpleIRCClient):
             # Join all channels to avoid only joining a members-only channel
             time.sleep(random.randint(1, 3))
             self.logger.info(f"Joining channel {channel}")
+            print(f"Joining channel {channel}")
             conn.join(channel)
 
     def on_endofwhois(self, conn: ServerConnection, _: Event):
