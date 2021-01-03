@@ -22,7 +22,6 @@ import os
 import logging
 import argparse
 from puffotter.init import cli_start, argparse_add_verbosity
-from xdcc_dl import sentry_dsn
 from xdcc_dl.xdcc import download_packs
 from xdcc_dl.helper import prepare_packs, add_xdcc_argparse_arguments
 from xdcc_dl.entities import XDCCPack
@@ -69,7 +68,6 @@ if __name__ == "__main__":
     argparse_add_verbosity(parser)
     cli_start(
         main, parser,
-        sentry_dsn=sentry_dsn,
         package_name="xdcc-dl",
         exit_msg="Thanks for using xdcc-dl!"
     )

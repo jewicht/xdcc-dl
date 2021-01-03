@@ -24,7 +24,6 @@ from typing import List
 from requests.exceptions import ConnectionError
 from puffotter.init import cli_start, argparse_add_verbosity
 from puffotter.prompt import selection_prompt
-from xdcc_dl import sentry_dsn
 from xdcc_dl.xdcc.exceptions import DownloadIncomplete
 from xdcc_dl.helper import prepare_packs, add_xdcc_argparse_arguments
 from xdcc_dl.entities import XDCCPack
@@ -82,7 +81,6 @@ if __name__ == "__main__":
     argparse_add_verbosity(parser)
     cli_start(
         main, parser,
-        sentry_dsn=sentry_dsn,
         package_name="xdcc-dl",
         exit_msg="Thanks for using xdcc-dl!"
     )

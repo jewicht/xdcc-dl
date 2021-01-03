@@ -21,7 +21,6 @@ LICENSE"""
 import argparse
 from puffotter.init import cli_start
 from requests.exceptions import ConnectionError
-from xdcc_dl import sentry_dsn
 from xdcc_dl.pack_search.SearchEngine import SearchEngineType
 from puffotter.units import human_readable_bytes
 
@@ -58,7 +57,6 @@ if __name__ == "__main__":
                         help="The Search Engine to use")
     cli_start(
         main, parser,
-        sentry_dsn=sentry_dsn,
         package_name="xdcc-dl",
         exit_msg="Thanks for using xdcc-dl!"
     )
